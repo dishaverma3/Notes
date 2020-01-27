@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Notes</string>
+    <string name="title_activity_view_notes">ViewNotesActivity</string>
+    <string name="title">TITLE</string>
 </resources>
