@@ -36,7 +36,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Drawable upArrow =  ContextCompat.getDrawable(getApplicationContext(), R.drawable.abc_ic_ab_back_material);
         upArrow.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.black), PorterDuff.Mode.SRC_ATOP);
@@ -70,11 +70,18 @@ public class CreateNoteActivity extends AppCompatActivity {
         return true;
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.save_note)
         {
             viewModel.setData(title.getText().toString(), content.getText().toString());
-        }return super.onOptionsItemSelected(item);
+            return true;
+        }else if(item.getItemId() == android.R.id.home)
+        {
+            onBackPressed();
+            return true;
+        }else return super.onOptionsItemSelected(item);
     }
 }
