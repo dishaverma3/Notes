@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 public class ViewNotesViewModel extends AndroidViewModel {
 
 
+
     public ViewNotesViewModel(@NonNull Application application) {
         super(application);
     }

@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.ViewNotes.ViewNotesActivity"
+        <activity
+            android:name=".ui.CreateNote.CreateNoteActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.ViewNotes.ViewNotesActivity"
             android:label="@string/title_activity_view_notes"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
