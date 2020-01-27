@@ -27,14 +27,39 @@
             android:textSize="18sp"/>
 
         <TextView
-            android:id="@+id/date_text"
+            android:id="@+id/content_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/title_text"
             app:layout_constraintTop_toBottomOf="@id/title_text"
-            android:text="Jan 27, 2020 14:15"
+            android:text="Lorem ipsum lorem ipsu..."
             android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            android:layout_marginBottom="5dp"
+            />
+
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/content_text"
+            app:layout_constraintTop_toBottomOf="@id/content_text"
+            android:text="Jan 27, 2020 14:15"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
+
+            />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/delete_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@android:drawable/ic_menu_delete"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:clickable="true"
+
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
