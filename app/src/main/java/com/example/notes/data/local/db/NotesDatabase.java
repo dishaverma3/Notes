@@ -12,7 +12,7 @@ public abstract class NotesDatabase extends RoomDatabase {
     public abstract NotesDao notesDao();
 
     private static NotesDatabase INSTANCE = null;
-    private static Object lock = null;
+    private static Object lock = new Object();
 
     public static NotesDatabase getInstance(Context context)
     {
