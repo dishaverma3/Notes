@@ -1,53 +1,60 @@
-package com.example.notes.ui.CreateNote;
+package com.example.notes.ui.ViewSingleNote;
 
 import android.app.Application;
-import android.os.Looper;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.notes.data.local.db.NotesDatabase;
 import com.example.notes.data.local.db.NotesEntity;
 import com.example.notes.util.AppExecutors;
 
-public class CreateNoteViewModel extends AndroidViewModel{
+import java.util.List;
+
+
+public class SingleNoteViewModel extends AndroidViewModel{
 
     NotesDatabase database;
-    MutableLiveData<Boolean> saved = new MutableLiveData<>();
+    NotesEntity item;
+    MutableLiveData<NotesEntity> noteData = new MutableLiveData<>();
 
-    public CreateNoteViewModel(@NonNull Application application) {
+    public SingleNoteViewModel(@NonNull Application application) {
         super(application);
 
         database = NotesDatabase.getInstance(application.getApplicationContext());
     }
 
-    void setData(final String title, final String content) {
-        Log.d("viewmodel create", "INSERT: TIME -- "+System.currentTimeMillis()/1000);
+    public void getData(final Long noteId) {
+
         new AppExecutors().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                database.notesDao().insertNote(new NotesEntity(title,String.valueOf(System.currentTimeMillis()/1000),content));
+                item = database.notesDao().getNotes(noteId);
             }
         });
 
         new AppExecutors().mainThread().execute(new Runnable() {
             @Override
             public void run() {
-                saved.setValue(true);
-
+                noteData.setValue(item);
             }
         });
     }
 
-    public void updateData(final NotesEntity notes) {
-        Log.d("viewmodel create", "UPDATE: TIME -- "+System.currentTimeMillis()/1000);
+
+    public void delete(final Long id) {
         new AppExecutors().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                database.notesDao().updateNotes(notes);
+                database.notesDao().deleteNote(id);
+
+            }
+        });
+        new AppExecutors().mainThread().execute(new Runnable() {
+            @Override
+            public void run() {
+                noteData.setValue(item);
             }
         });
     }

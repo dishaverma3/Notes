@@ -1,6 +1,8 @@
-package com.example.notes.ui.ViewNotes;
+package com.example.notes.ui.ViewAllNotes;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +11,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notes.R;
 import com.example.notes.data.local.db.NotesDatabase;
 import com.example.notes.data.local.db.NotesEntity;
+import com.example.notes.ui.ViewSingleNote.ViewSingleNoteActivity;
 import com.example.notes.util.AppExecutors;
 
 import java.text.SimpleDateFormat;
@@ -24,6 +26,8 @@ import java.util.List;
 import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class ViewNotesAdapter extends RecyclerView.Adapter<ViewNotesAdapter.ViewHolder> {
 
@@ -87,7 +91,10 @@ public class ViewNotesAdapter extends RecyclerView.Adapter<ViewNotesAdapter.View
             date.setText(dateString);
 
             int[] androidColors = context.getResources().getIntArray(R.array.androidcolors);
-            layout.setCardBackgroundColor(androidColors[new Random().nextInt(androidColors.length)]);
+
+            if(position >= 0 && position < 9)
+                layout.setCardBackgroundColor(androidColors[position]);
+            else layout.setCardBackgroundColor(androidColors[position%9]);
 
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -108,6 +115,19 @@ public class ViewNotesAdapter extends RecyclerView.Adapter<ViewNotesAdapter.View
                             });
                         }
                     });
+                }
+            });
+
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    Intent intent = new Intent(context.getApplicationContext(), ViewSingleNoteActivity.class);
+
+                    bundle.putLong("notes_id", listItem.getId());
+                    intent.putExtras(bundle);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
                 }
             });
         }

@@ -3,10 +3,11 @@ package com.example.notes.data.local.db;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "notes_table")
-public class NotesEntity {
+public class NotesEntity implements Comparable<NotesEntity> {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "notes_id")
@@ -60,5 +61,10 @@ public class NotesEntity {
 
     public void setContent(@NonNull String content) {
         this.content = content;
+    }
+
+    @Override
+    public int compareTo(NotesEntity notesEntity) {
+        return getDate().compareTo(notesEntity.getDate());
     }
 }

@@ -22,7 +22,7 @@ public interface NotesDao {
     NotesEntity getNotes(Long id);
 
     @Update
-    void updateNotes(NotesEntity note);
+    void updateNotes(NotesEntity notesEntity);
 
     @Query("DELETE from notes_table WHERE notes_id = :id")
     void deleteNote(Long id);

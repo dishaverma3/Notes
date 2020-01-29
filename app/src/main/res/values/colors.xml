@@ -6,11 +6,15 @@
 
     <color name="listtem1">#F4C2C2</color>
     <color name="listtem2">#AAC0AA</color>
-    <color name="listtem3">#736372</color>
-    <color name="listtem4">#7A918D</color>
-    <color name="listtem5">#85A089</color>
+    <color name="listtem3">#BEB6BD</color>
+    <color name="listtem4">#B9C5C3</color>
+    <color name="listtem5">#BCCBBE</color>
     <color name="listtem6">#8CADA7</color>
+    <color name="listtem7">#FFEBA3</color>
+    <color name="listtem8">#CDD2E9</color>
+    <color name="listtem9">#ECCBB7</color>
     <color name="black">#000000</color>
+
 
 
     <integer-array name="androidcolors">
@@ -20,6 +24,14 @@
         <item>@color/listtem4</item>
         <item>@color/listtem5</item>
         <item>@color/listtem6</item>
+        <item>@color/listtem7</item>
+        <item>@color/listtem8</item>
+        <item>@color/listtem9</item>
+    </integer-array>
+
+    <integer-array name="fab_menu_item_colors">
+        <item>@color/colorAccent</item>
+        <item>@color/colorAccent</item>
     </integer-array>
 </resources>
 

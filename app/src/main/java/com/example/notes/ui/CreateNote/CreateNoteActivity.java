@@ -8,10 +8,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,18 +19,23 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.notes.R;
-import com.example.notes.ui.ViewNotes.ViewNotesActivity;
+import com.example.notes.data.local.db.NotesEntity;
+import com.example.notes.ui.ViewAllNotes.ViewNotesActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
+
+import java.util.HashMap;
 
 public class CreateNoteActivity extends AppCompatActivity {
 
     CreateNoteViewModel viewModel;
-    TextInputEditText title;
-    EditText content;
-    private FloatingActionButton save;
+    TextInputEditText titleEditText;
+    EditText contentEditText;
+    private FloatingActionButton saveButton;
     Toolbar toolbar;
+    NotesEntity noteDetails;
 
 
     @Override
@@ -39,6 +44,16 @@ public class CreateNoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_note);
 
         init();
+
+        if (getIntent().getExtras() != null)
+        {
+            getBundle();
+        }
+//        try {
+//        }catch (NullPointerException e)
+//        {
+//            e.printStackTrace();
+//        }
 
         viewModel.saved.observe(this, new Observer<Boolean>() {
             @Override
@@ -56,20 +71,52 @@ public class CreateNoteActivity extends AppCompatActivity {
             }
         });
 
-        save.setOnClickListener(new View.OnClickListener() {
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.setData(title.getText().toString(), content.getText().toString());
+                if(!(TextUtils.isEmpty(contentEditText.getText().toString().trim())) || !(TextUtils.isEmpty(titleEditText.getText().toString().trim())))
+                {
+                    if(noteDetails != null)
+                    {
+                        if(!noteDetails.getTitle().equals(titleEditText.getText().toString()))
+                            noteDetails.setTitle(titleEditText.getText().toString());
+                        else if(!noteDetails.getContent().equals(contentEditText.getText().toString()))
+                            noteDetails.setContent(contentEditText.getText().toString());
+
+                        noteDetails.setDate(System.currentTimeMillis()/1000+"");
+
+                        viewModel.updateData(noteDetails);
+                        startActivity(new Intent(CreateNoteActivity.this,ViewNotesActivity.class));
+                    }else viewModel.setData(titleEditText.getText().toString(), contentEditText.getText().toString());
+                }else{
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"Notes can not be empty",Snackbar.LENGTH_LONG);
+                    (snackbar.getView()).getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+                    snackbar.show();
+                }
             }
         });
+    }
+
+
+    private void getBundle() {
+        HashMap<String,String> notesMap;
+
+        notesMap = (HashMap<String,String>) getIntent().getExtras().getSerializable("notes_details");
+        noteDetails = new Gson().fromJson(notesMap.get("notesDetails"),NotesEntity.class);
+
+        if(noteDetails != null)
+        {
+            titleEditText.setText(noteDetails.getTitle());
+            contentEditText.setText(noteDetails.getContent());
+        }
     }
 
     private void init() {
         toolbar = findViewById(R.id.toolbar);
         viewModel = new ViewModelProvider(this).get(CreateNoteViewModel.class);
-        title = findViewById(R.id.title_edittext);
-        content = findViewById(R.id.content_edittext);
-        save = findViewById(R.id.save_button);
+        titleEditText = findViewById(R.id.title_edittext);
+        contentEditText = findViewById(R.id.content_edittext);
+        saveButton = findViewById(R.id.save_button);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
