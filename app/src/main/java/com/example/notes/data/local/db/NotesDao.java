@@ -24,6 +24,6 @@ public interface NotesDao {
     @Update
     void updateNotes(NotesEntity note);
 
-    @Delete
-    void deleteNote(NotesEntity note);
+    @Query("DELETE from notes_table WHERE notes_id = :id")
+    void deleteNote(Long id);
 }

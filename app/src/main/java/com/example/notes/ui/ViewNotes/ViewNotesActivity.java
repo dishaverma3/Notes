@@ -26,6 +26,7 @@ public class ViewNotesActivity extends AppCompatActivity {
     ViewNotesViewModel viewModel;
     RecyclerView recyclerView;
     ViewNotesAdapter adapter;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,6 @@ public class ViewNotesActivity extends AppCompatActivity {
 
         init();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
         viewModel.getAllNotes();
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +66,8 @@ public class ViewNotesActivity extends AppCompatActivity {
     private void init() {
         viewModel = new ViewModelProvider(this).get(ViewNotesViewModel.class);
         recyclerView = findViewById(R.id.recycler_view);
+        fab = findViewById(R.id.fab);
+
     }
 
 }

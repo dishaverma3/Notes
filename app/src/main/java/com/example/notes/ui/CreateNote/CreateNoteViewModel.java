@@ -11,8 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.notes.data.local.db.NotesDatabase;
 import com.example.notes.data.local.db.NotesEntity;
-
-import java.util.logging.Handler;
+import com.example.notes.util.AppExecutors;
 
 public class CreateNoteViewModel extends AndroidViewModel{
 
@@ -26,20 +25,20 @@ public class CreateNoteViewModel extends AndroidViewModel{
     }
 
     void setData(final String title, final String content) {
-        new Thread(new Runnable() {
+        new AppExecutors().diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 database.notesDao().insertNote(new NotesEntity(title,String.valueOf(System.currentTimeMillis()/1000),content));
+            }
+        });
 
-                new android.os.Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        saved.setValue(true);
-                    }
-                });
+        new AppExecutors().mainThread().execute(new Runnable() {
+            @Override
+            public void run() {
+                saved.setValue(true);
 
             }
-        }).start();
+        });
         Log.d("viewmodel create", "setData: TIME -- "+System.currentTimeMillis()/1000);
     }
 }

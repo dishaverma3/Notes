@@ -11,5 +11,15 @@
     <color name="listtem5">#85A089</color>
     <color name="listtem6">#8CADA7</color>
     <color name="black">#000000</color>
+
+
+    <integer-array name="androidcolors">
+        <item>@color/listtem1</item>
+        <item>@color/listtem2</item>
+        <item>@color/listtem3</item>
+        <item>@color/listtem4</item>
+        <item>@color/listtem5</item>
+        <item>@color/listtem6</item>
+    </integer-array>
 </resources>
 

@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.notes.data.local.db.NotesDatabase;
 import com.example.notes.data.local.db.NotesEntity;
+import com.example.notes.util.AppExecutors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,17 +29,18 @@ public class ViewNotesViewModel extends AndroidViewModel {
 
     void getAllNotes()
     {
-        new Thread(new Runnable() {
+        new AppExecutors().diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 list = database.notesDao().getAllNotes();
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        isListSet.setValue(true);
-                    }
-                });
             }
-        }).start();
+        });
+
+        new AppExecutors().mainThread().execute(new Runnable() {
+            @Override
+            public void run() {
+                isListSet.setValue(true);
+            }
+        });
     }
 }
