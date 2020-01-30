@@ -1,4 +1,4 @@
-package com.example.notes.ui.ViewSingleNote;
+package com.example.notes.ui.NoteDetails;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,23 +29,24 @@ import java.util.HashMap;
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 
-public class ViewSingleNoteActivity extends AppCompatActivity {
+public class NoteDetailActivity extends AppCompatActivity {
 
     TextView titleView, contentView, dateView;
     Long noteId;
     FabSpeedDial fabSpeedDial;
     NotesEntity currentNotesDetails;
-    SingleNoteViewModel viewModel;
+    NoteDetailsViewModel viewModel;
     private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_single_note);
+        setContentView(R.layout.activity_note_detail);
 
         init();
 
-        getBundle();
+        if(getIntent().getExtras() != null)
+            getBundle();
 
         getData();
 
@@ -77,7 +77,7 @@ public class ViewSingleNoteActivity extends AppCompatActivity {
                 }else if(menuItem.getItemId() == R.id.action_delete)
                 {
                     viewModel.delete(currentNotesDetails.getId());
-                    startActivity(new Intent(ViewSingleNoteActivity.this, ViewNotesActivity.class));
+                    startActivity(new Intent(NoteDetailActivity.this, ViewNotesActivity.class));
                     return true;
                 }else
                     return super.onMenuItemSelected(menuItem);
@@ -131,7 +131,7 @@ public class ViewSingleNoteActivity extends AppCompatActivity {
         upArrow.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.black), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-        viewModel = new ViewModelProvider(this).get(SingleNoteViewModel.class);
+        viewModel = new ViewModelProvider(this).get(NoteDetailsViewModel.class);
 
     }
 

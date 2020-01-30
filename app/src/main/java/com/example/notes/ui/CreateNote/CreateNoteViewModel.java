@@ -1,12 +1,10 @@
 package com.example.notes.ui.CreateNote;
 
 import android.app.Application;
-import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.notes.data.local.db.NotesDatabase;
@@ -16,7 +14,7 @@ import com.example.notes.util.AppExecutors;
 public class CreateNoteViewModel extends AndroidViewModel{
 
     NotesDatabase database;
-    MutableLiveData<Boolean> saved = new MutableLiveData<>();
+    MutableLiveData<Boolean> isItemInserted = new MutableLiveData<>();
 
     public CreateNoteViewModel(@NonNull Application application) {
         super(application);
@@ -33,13 +31,14 @@ public class CreateNoteViewModel extends AndroidViewModel{
             }
         });
 
+
         new AppExecutors().mainThread().execute(new Runnable() {
             @Override
             public void run() {
-                saved.setValue(true);
-
+                isItemInserted.setValue(true);
             }
         });
+
     }
 
     public void updateData(final NotesEntity notes) {

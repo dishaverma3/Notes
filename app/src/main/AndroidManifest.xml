@@ -12,14 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.ViewSingleNote.ViewSingleNoteActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ui.ViewAllNotes.ViewNotesActivity"
+            android:theme="@style/AppTheme.NoActionBar" ></activity>
+        <activity
+            android:name=".ui.NoteDetails.NoteDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.CreateNote.CreateNoteActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.ViewAllNotes.ViewNotesActivity"
-            android:label="@string/title_activity_view_notes"
+            android:name=".ui.Splash.SplashActivity"
+            android:label="Notes"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

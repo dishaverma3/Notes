@@ -1,4 +1,4 @@
-package com.example.notes.ui.ViewSingleNote;
+package com.example.notes.ui.NoteDetails;
 
 import android.app.Application;
 
@@ -10,16 +10,14 @@ import com.example.notes.data.local.db.NotesDatabase;
 import com.example.notes.data.local.db.NotesEntity;
 import com.example.notes.util.AppExecutors;
 
-import java.util.List;
 
-
-public class SingleNoteViewModel extends AndroidViewModel{
+public class NoteDetailsViewModel extends AndroidViewModel{
 
     NotesDatabase database;
     NotesEntity item;
     MutableLiveData<NotesEntity> noteData = new MutableLiveData<>();
 
-    public SingleNoteViewModel(@NonNull Application application) {
+    public NoteDetailsViewModel(@NonNull Application application) {
         super(application);
 
         database = NotesDatabase.getInstance(application.getApplicationContext());

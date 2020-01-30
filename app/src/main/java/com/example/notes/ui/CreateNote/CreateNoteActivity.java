@@ -21,12 +21,16 @@ import android.widget.EditText;
 import com.example.notes.R;
 import com.example.notes.data.local.db.NotesEntity;
 import com.example.notes.ui.ViewAllNotes.ViewNotesActivity;
+import com.example.notes.ui.NoteDetails.NoteDetailActivity;
+import com.example.notes.util.AppExecutors;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class CreateNoteActivity extends AppCompatActivity {
 
@@ -35,6 +39,7 @@ public class CreateNoteActivity extends AppCompatActivity {
     EditText contentEditText;
     private FloatingActionButton saveButton;
     Toolbar toolbar;
+//    String currentTimeStamp;
     NotesEntity noteDetails;
 
 
@@ -49,24 +54,39 @@ public class CreateNoteActivity extends AppCompatActivity {
         {
             getBundle();
         }
-//        try {
-//        }catch (NullPointerException e)
-//        {
-//            e.printStackTrace();
-//        }
 
-        viewModel.saved.observe(this, new Observer<Boolean>() {
+        viewModel.isItemInserted.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean)
                 {
                     startActivity(new Intent(CreateNoteActivity.this, ViewNotesActivity.class));
 
-                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"Note Saved",Snackbar.LENGTH_LONG);
-                    (snackbar.getView()).getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    snackbar.show();
+//                    Bundle bundle = new Bundle();
+//                    Intent intent = new Intent(CreateNoteActivity.this, NoteDetailActivity.class);
+//
+//                    bundle.putString("notes_title",titleEditText.getText().toString());
+//                    bundle.putString("notes_content",contentEditText.getText().toString());
+//                    bundle.putString("notes_date",);
+//                    intent.putExtras(bundle);
+//                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+//                    startActivity(intent);
+
+                    //TODO: GET ITEM BY ID ON CREATE
+
+
+                    new AppExecutors().mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"Note Saved",Snackbar.LENGTH_LONG);
+                            (snackbar.getView()).getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+                            snackbar.show();
+                        }
+                    });
 
                     finish();
+
+
                 }
             }
         });
@@ -80,7 +100,7 @@ public class CreateNoteActivity extends AppCompatActivity {
                     {
                         if(!noteDetails.getTitle().equals(titleEditText.getText().toString()))
                             noteDetails.setTitle(titleEditText.getText().toString());
-                        else if(!noteDetails.getContent().equals(contentEditText.getText().toString()))
+                        if(!noteDetails.getContent().equals(contentEditText.getText().toString()))
                             noteDetails.setContent(contentEditText.getText().toString());
 
                         noteDetails.setDate(System.currentTimeMillis()/1000+"");

@@ -16,14 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.notes.R;
 import com.example.notes.data.local.db.NotesDatabase;
 import com.example.notes.data.local.db.NotesEntity;
-import com.example.notes.ui.ViewSingleNote.ViewSingleNoteActivity;
+import com.example.notes.ui.NoteDetails.NoteDetailActivity;
 import com.example.notes.util.AppExecutors;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -122,7 +121,7 @@ public class ViewNotesAdapter extends RecyclerView.Adapter<ViewNotesAdapter.View
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    Intent intent = new Intent(context.getApplicationContext(), ViewSingleNoteActivity.class);
+                    Intent intent = new Intent(context.getApplicationContext(), NoteDetailActivity.class);
 
                     bundle.putLong("notes_id", listItem.getId());
                     intent.putExtras(bundle);
