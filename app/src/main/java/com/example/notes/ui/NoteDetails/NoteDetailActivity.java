@@ -145,4 +145,11 @@ public class NoteDetailActivity extends AppCompatActivity {
             return true;
         }else return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ViewNotesActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 }

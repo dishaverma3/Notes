@@ -1,5 +1,7 @@
 package com.example.notes.ui.ViewAllNotes;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +12,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notes.R;
@@ -32,11 +37,13 @@ public class ViewNotesAdapter extends RecyclerView.Adapter<ViewNotesAdapter.View
 
     private List<NotesEntity> list;
     private Context context;
+    ViewNotesViewModel viewNotesViewModel;
     private NotesDatabase database;
 
-    public ViewNotesAdapter(List<NotesEntity> list, Context context) {
+    public ViewNotesAdapter(ViewNotesViewModel viewModel, List<NotesEntity> list, Context context) {
         this.list = list;
         this.context = context;
+        this.viewNotesViewModel = viewModel;
     }
 
     @NonNull
@@ -77,6 +84,7 @@ public class ViewNotesAdapter extends RecyclerView.Adapter<ViewNotesAdapter.View
         void bind(final int position) {
             final NotesEntity listItem = list.get(position);
             database = NotesDatabase.getInstance(context);
+//            viewNotesViewModel = new ViewModelProvider((FragmentActivity)context).get(ViewNotesViewModel.class);
 
             title.setText(listItem.getTitle());
             content.setText(listItem.getContent());
@@ -99,21 +107,9 @@ public class ViewNotesAdapter extends RecyclerView.Adapter<ViewNotesAdapter.View
                 @Override
                 public void onClick(View v) {
 
-                    new AppExecutors().diskIO().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            database.notesDao().deleteNote(listItem.getId());
-                            List<NotesEntity> updatedList = database.notesDao().getAllNotes();
-                            setList(updatedList);
-
-                            new AppExecutors().mainThread().execute(new Runnable() {
-                                @Override
-                                public void run() {
-                                    notifyItemRemoved(position);
-                                }
-                            });
-                        }
-                    });
+                    List<NotesEntity> updatedList = viewNotesViewModel.deleteNote(listItem);
+                    setList(updatedList);
+                    notifyItemRemoved(position);
                 }
             });
 

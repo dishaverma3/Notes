@@ -3,6 +3,7 @@ package com.example.notes.ui.ViewAllNotes;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.notes.data.local.db.NotesEntity;
 import com.example.notes.ui.CreateNote.CreateNoteActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.example.notes.R;
 
@@ -30,6 +32,8 @@ public class ViewNotesActivity extends AppCompatActivity {
     ViewNotesViewModel viewModel;
     RecyclerView recyclerView;
     ViewNotesAdapter adapter;
+    LinearLayout noListView;
+    LottieAnimationView arrowView;
     FloatingActionButton addNotesButton;
 
     @Override
@@ -61,20 +65,33 @@ public class ViewNotesActivity extends AppCompatActivity {
         });
     }
 
-    private void setRecyclerView(List<NotesEntity> list) {
+    public void setRecyclerView(List<NotesEntity> list) {
 
-        Collections.sort(list);
-        Collections.reverse(list);
+        if(list.size() != 0)
+        {
+            Collections.sort(list);
+            Collections.reverse(list);
 
-        adapter = new ViewNotesAdapter(list,getApplicationContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+            adapter = new ViewNotesAdapter(viewModel,list,getApplicationContext());
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(adapter);
+
+
+        }else {
+
+            recyclerView.setVisibility(View.GONE);
+            noListView.setVisibility(View.VISIBLE);
+            arrowView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void init() {
         viewModel = new ViewModelProvider(this).get(ViewNotesViewModel.class);
-        recyclerView = findViewById(R.id.recycler_view);
         addNotesButton = findViewById(R.id.fab);
+
+        recyclerView = findViewById(R.id.recycler_view);
+        noListView = findViewById(R.id.noListView);
+        arrowView = findViewById(R.id.arrowAnimation);
 
     }
 }
