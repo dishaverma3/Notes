@@ -114,6 +114,7 @@ public class NoteDetailActivity extends AppCompatActivity {
 
     private void getBundle() {
         noteId = getIntent().getExtras().getLong("notes_id");
+
     }
 
     private void init() {

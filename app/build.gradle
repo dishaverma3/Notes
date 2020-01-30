@@ -38,19 +38,22 @@ dependencies {
 
     //gson
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     //room
     implementation 'android.arch.persistence.room:runtime:1.1.1'
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
 
     //viewmodel and lifecycle libraries
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-rc03'
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.1.0"
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-rc03'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0'
 
     //lottie
-    implementation 'com.airbnb.android:lottie:2.7.0'
+    implementation 'com.airbnb.android:lottie:3.2.0'
+
+
+
 
 
 

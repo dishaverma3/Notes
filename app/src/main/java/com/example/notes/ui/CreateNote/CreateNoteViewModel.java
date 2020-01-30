@@ -14,7 +14,8 @@ import com.example.notes.util.AppExecutors;
 public class CreateNoteViewModel extends AndroidViewModel{
 
     NotesDatabase database;
-    MutableLiveData<Boolean> isItemInserted = new MutableLiveData<>();
+    MutableLiveData<Long> isItemInserted = new MutableLiveData<>();
+    Long id;
 
     public CreateNoteViewModel(@NonNull Application application) {
         super(application);
@@ -27,17 +28,18 @@ public class CreateNoteViewModel extends AndroidViewModel{
         new AppExecutors().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                database.notesDao().insertNote(new NotesEntity(title,String.valueOf(System.currentTimeMillis()/1000),content));
+                id = database.notesDao().insertNote(new NotesEntity(title,String.valueOf(System.currentTimeMillis()/1000),content));
+                Log.d(" id id ", "run: ID - "+id);
+
+                new AppExecutors().mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        isItemInserted.setValue(id);
+                    }
+                });
             }
         });
 
-
-        new AppExecutors().mainThread().execute(new Runnable() {
-            @Override
-            public void run() {
-                isItemInserted.setValue(true);
-            }
-        });
 
     }
 

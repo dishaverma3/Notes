@@ -13,7 +13,7 @@ import java.util.List;
 public interface NotesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertNote(NotesEntity note);
+    long insertNote(NotesEntity note);
 
     @Query("SELECT * FROM notes_table")
     List<NotesEntity> getAllNotes();

@@ -12,6 +12,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,39 +56,36 @@ public class CreateNoteActivity extends AppCompatActivity {
             getBundle();
         }
 
-        viewModel.isItemInserted.observe(this, new Observer<Boolean>() {
+        viewModel.isItemInserted.observe(this, new Observer<Long>() {
             @Override
-            public void onChanged(Boolean aBoolean) {
-                if(aBoolean)
-                {
-                    startActivity(new Intent(CreateNoteActivity.this, ViewNotesActivity.class));
+            public void onChanged(Long aLong) {
 
-//                    Bundle bundle = new Bundle();
-//                    Intent intent = new Intent(CreateNoteActivity.this, NoteDetailActivity.class);
-//
+                Bundle bundle = new Bundle();
+                Intent intent = new Intent(CreateNoteActivity.this, NoteDetailActivity.class);
+
+                Log.d("ID VIEWMODEL CREATE", "onChanged: IDDDD - "+aLong);
+                bundle.putLong("notes_id", aLong);
 //                    bundle.putString("notes_title",titleEditText.getText().toString());
 //                    bundle.putString("notes_content",contentEditText.getText().toString());
 //                    bundle.putString("notes_date",);
-//                    intent.putExtras(bundle);
-//                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-//                    startActivity(intent);
+                intent.putExtras(bundle);
+                intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
 
-                    //TODO: GET ITEM BY ID ON CREATE
-
-
-                    new AppExecutors().mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"Note Saved",Snackbar.LENGTH_LONG);
-                            (snackbar.getView()).getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-                            snackbar.show();
-                        }
-                    });
-
-                    finish();
+                //TODO: GET ITEM BY ID ON CREATE
 
 
-                }
+                new AppExecutors().mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"Note Saved",Snackbar.LENGTH_LONG);
+                        (snackbar.getView()).getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+                        snackbar.show();
+                    }
+                });
+
+                finish();
+
             }
         });
 
