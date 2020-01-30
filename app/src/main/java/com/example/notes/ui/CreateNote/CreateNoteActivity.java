@@ -40,7 +40,6 @@ public class CreateNoteActivity extends AppCompatActivity {
     EditText contentEditText;
     private FloatingActionButton saveButton;
     Toolbar toolbar;
-//    String currentTimeStamp;
     NotesEntity noteDetails;
 
 
@@ -63,16 +62,11 @@ public class CreateNoteActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 Intent intent = new Intent(CreateNoteActivity.this, NoteDetailActivity.class);
 
-                Log.d("ID VIEWMODEL CREATE", "onChanged: IDDDD - "+aLong);
                 bundle.putLong("notes_id", aLong);
-//                    bundle.putString("notes_title",titleEditText.getText().toString());
-//                    bundle.putString("notes_content",contentEditText.getText().toString());
-//                    bundle.putString("notes_date",);
+
                 intent.putExtras(bundle);
                 intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-
-                //TODO: GET ITEM BY ID ON CREATE
 
 
                 new AppExecutors().mainThread().execute(new Runnable() {
