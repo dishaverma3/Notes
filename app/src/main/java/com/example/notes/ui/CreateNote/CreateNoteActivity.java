@@ -86,20 +86,22 @@ public class CreateNoteActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!(TextUtils.isEmpty(contentEditText.getText().toString().trim())) || !(TextUtils.isEmpty(titleEditText.getText().toString().trim())))
+                String titleText = titleEditText.getText().toString().trim();
+                String contentText = contentEditText.getText().toString().trim();
+                if(!(TextUtils.isEmpty(contentText)) || !(TextUtils.isEmpty(titleText)))
                 {
                     if(noteDetails != null)
                     {
-                        if(!noteDetails.getTitle().equals(titleEditText.getText().toString()))
-                            noteDetails.setTitle(titleEditText.getText().toString());
-                        if(!noteDetails.getContent().equals(contentEditText.getText().toString()))
-                            noteDetails.setContent(contentEditText.getText().toString());
+                        if(!noteDetails.getTitle().equals(titleText))
+                            noteDetails.setTitle(titleText);
+                        if(!noteDetails.getContent().equals(contentText))
+                            noteDetails.setContent(contentText);
 
                         noteDetails.setDate(System.currentTimeMillis()/1000+"");
 
                         viewModel.updateData(noteDetails);
                         startActivity(new Intent(CreateNoteActivity.this,ViewNotesActivity.class));
-                    }else viewModel.setData(titleEditText.getText().toString(), contentEditText.getText().toString());
+                    }else viewModel.setData(titleText, contentText);
                 }else{
                     Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),"Notes can not be empty",Snackbar.LENGTH_LONG);
                     (snackbar.getView()).getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;

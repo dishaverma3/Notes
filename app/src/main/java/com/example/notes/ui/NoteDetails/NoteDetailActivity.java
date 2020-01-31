@@ -77,7 +77,7 @@ public class NoteDetailActivity extends AppCompatActivity {
                 }else if(menuItem.getItemId() == R.id.action_delete)
                 {
                     viewModel.delete(currentNotesDetails.getId());
-                    startActivity(new Intent(NoteDetailActivity.this, ViewNotesActivity.class));
+                    finish();
                     return true;
                 }else
                     return super.onMenuItemSelected(menuItem);
@@ -144,5 +144,12 @@ public class NoteDetailActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         }else return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ViewNotesActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

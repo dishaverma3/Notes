@@ -12,8 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.ViewAllNotes.ViewNotesActivity"
-            android:theme="@style/AppTheme.NoActionBar" ></activity>
+        <activity
+            android:name=".ui.ViewAllNotes.ViewNotesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.NoteDetails.NoteDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />

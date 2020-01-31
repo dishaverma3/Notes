@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.notes.data.local.db.NotesDatabase;
@@ -39,5 +40,22 @@ public class ViewNotesViewModel extends AndroidViewModel {
                 isListSet.setValue(true);
             }
         });
+    }
+
+    public List<NotesEntity> deleteNote(final NotesEntity listItem) {
+        new AppExecutors().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                database.notesDao().deleteNote(listItem.getId());
+                getAllNotes();
+
+                new AppExecutors().mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                });
+            }
+        });
+        return list;
     }
 }
