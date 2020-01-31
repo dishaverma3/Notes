@@ -82,8 +82,6 @@ public class NoteDetailActivity extends AppCompatActivity {
                 }else
                     return super.onMenuItemSelected(menuItem);
             }
-
-
         });
 
     }

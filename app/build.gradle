@@ -42,7 +42,6 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     //gson
-    // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation 'com.google.code.gson:gson:2.8.6'
 
     //room
