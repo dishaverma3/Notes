@@ -41,7 +41,7 @@ Following are the third party dependencies used in the app :
 For testing, the project has used following dependencies :
 
 - ***JUnit*** - For unit testing.
-- ***Roboelectri*** - Unit testing framework for fast testing.
+- ***Roboelectric*** - Unit testing framework for fast testing.
 - ***Mockito*** - For mocking objects.
 
 
