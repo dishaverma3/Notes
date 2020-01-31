@@ -87,6 +87,10 @@ public class ViewNotesAdapter extends RecyclerView.Adapter<ViewNotesAdapter.View
 //            viewNotesViewModel = new ViewModelProvider((FragmentActivity)context).get(ViewNotesViewModel.class);
 
             title.setText(listItem.getTitle());
+            title.setMaxLines(1);
+            title.setEllipsize(TextUtils.TruncateAt.END);
+
+
             content.setText(listItem.getContent());
             content.setMaxLines(1);
             content.setEllipsize(TextUtils.TruncateAt.END);

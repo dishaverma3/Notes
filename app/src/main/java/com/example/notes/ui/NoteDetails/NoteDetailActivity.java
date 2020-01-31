@@ -77,7 +77,7 @@ public class NoteDetailActivity extends AppCompatActivity {
                 }else if(menuItem.getItemId() == R.id.action_delete)
                 {
                     viewModel.delete(currentNotesDetails.getId());
-                    startActivity(new Intent(NoteDetailActivity.this, ViewNotesActivity.class));
+                    finish();
                     return true;
                 }else
                     return super.onMenuItemSelected(menuItem);

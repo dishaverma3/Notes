@@ -45,8 +45,6 @@ public class ViewNotesActivity extends AppCompatActivity {
 
         init();
 
-        viewModel.getAllNotes();
-
         addNotesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +61,12 @@ public class ViewNotesActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        viewModel.getAllNotes();
     }
 
     public void setRecyclerView(List<NotesEntity> list) {
@@ -94,4 +98,5 @@ public class ViewNotesActivity extends AppCompatActivity {
         arrowView = findViewById(R.id.arrowAnimation);
 
     }
+
 }
