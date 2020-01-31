@@ -2,7 +2,7 @@
 ## **Application Installation Procedure:**
 
 1. Install *'Notes.apk'* Available outside *'app'* Package.
-2. Set Allow from this Resource in your settings.
+2. Set 'Allow from this Resource' in your Security Settings.
 
 ## **Screens and their function in Application**
 **1. Home Screen**
